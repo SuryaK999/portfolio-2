@@ -71,6 +71,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Observer for Progress Bars
+    const progressObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const bar = entry.target;
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width;
+                progressObserver.unobserve(bar);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.progress-bar').forEach(bar => {
+        progressObserver.observe(bar);
+    });
+
     // Skills Tab Switcher with Smooth Fade
     const tabBtns = document.querySelectorAll('.tab-btn');
     const skillsGrid = document.getElementById('skills-grid');
