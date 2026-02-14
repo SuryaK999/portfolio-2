@@ -30,7 +30,14 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     margin: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
+
+body.fade-in {
+    opacity: 1;
+}
+
 
 .section-wrapper {
     position: relative;
@@ -505,30 +512,7 @@ a {
 
 
 
-.vertical-label {
-    position: absolute;
-    left: 40px;
-    top: 150px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    transform: rotate(-90deg) translateX(-100%);
-    transform-origin: left top;
-    white-space: nowrap;
-    z-index: 5;
-}
 
-.vertical-label::before {
-    content: '';
-    display: inline-block;
-    width: 30px;
-    height: 1px;
-    background: var(--text-muted);
-    vertical-align: middle;
-    margin-right: 15px;
-}
 
 /* ACHIEVEMENT STATS */
 .stats-row {
@@ -801,21 +785,28 @@ a {
 
 /* SKILLS EXPERTISE PROGRESS BARS */
 .skills-expertise {
-    margin-top: 3rem;
+    margin-top: 5rem; /* Increased separation from top content */
     width: 100%;
-    max-width: 450px;
+    max-width: 900px; /* Constrain width for better readability */
+    margin-inline: auto; /* Center the block itself */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem; /* Increased gap for better spacing */
+    align-items: start;
 }
 
 .expertise-title {
-    font-size: 1.5rem;
+    grid-column: 1 / -1;
+    font-size: 2rem; /* Larger title for emphasis */
     font-weight: 800;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     color: var(--text-white);
     letter-spacing: 1px;
+    text-align: center; /* Center the title text */
 }
 
 .skill-progress {
-    margin-bottom: 1.2rem;
+    margin-bottom: 0;
 }
 
 .skill-info {
@@ -1267,12 +1258,16 @@ a {
 /* Fly-in handling via JS */
 .stat-card,
 .skill-icon-card,
-.work-card,
+.project-card,
 .about-image,
-.about-content {
+.about-content,
+.section-wrapper h2,
+.contact-item,
+.contact-form-card,
+.skill-progress {
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease-out;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .visible {
@@ -1285,7 +1280,8 @@ a {
 
     .about-grid,
     .skills-container,
-    .contact-grid {
+    .contact-grid,
+    .skills-expertise {
         grid-template-columns: 1fr;
     }
 
@@ -1551,12 +1547,4 @@ body.no-scroll {
     }
 }
 
-/* Page Transition */
-body {
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+/* Page Transition Styles handled by .fade-in class and JS */
